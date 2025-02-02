@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { UnistylesProvider } from "react-native-unistyles";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -37,15 +36,11 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView>
-      <UnistylesProvider>
-        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-          <StatusBar style="auto" />
-        </ThemeProvider>
-      </UnistylesProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+      <StatusBar style="auto" />
     </GestureHandlerRootView>
   );
 }

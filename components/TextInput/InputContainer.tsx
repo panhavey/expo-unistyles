@@ -1,7 +1,9 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { createStyleSheet, useStyles } from 'react-native-unistyles';
-import { Text } from '../Text';
+import React from "react";
+import { View } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
+import { Text } from "../Text";
+import { Label } from "../Label";
+import { InputProvider } from "./InputContext";
 
 interface InputContainerProps {
   children: React.ReactNode;
@@ -9,8 +11,10 @@ interface InputContainerProps {
   error?: string;
   right?: React.ReactNode;
   left?: React.ReactNode;
-  variant?: 'default' | 'outline';
+  variant?: "default" | "outline";
   style?: any;
+  isFocused?: boolean;
+  disabled?: boolean;
 }
 
 export const InputContainer: React.FC<InputContainerProps> = ({
@@ -19,34 +23,43 @@ export const InputContainer: React.FC<InputContainerProps> = ({
   error,
   right,
   left,
-  variant = 'default',
+  variant = "default",
+  isFocused = false,
+  disabled,
   style,
 }) => {
-  const { styles } = useStyles(stylesheet);
+  styles.useVariants({
+    focus: isFocused,
+  });
 
   return (
-    <View style={[styles.container, style]}>
-      {variant !== 'outline' && label && <Text style={styles.label}>{label}</Text>}
-      <View style={styles.inputWrapper}>
-        {left && <View style={styles.addon}>{left}</View>}
-        <View style={styles.inputContainer}>{children}</View>
-        {right && <View style={styles.addon}>{right}</View>}
+    <InputProvider variant={variant}>
+      <View style={[styles.container, style]}>
+        {label && <Label>{label}</Label>}
+        <View style={styles.inputWrapper}>
+          {left && <View style={styles.addon}>{left}</View>}
+          <View style={styles.inputContainer}>
+            <View style={[styles.border]}>{children}</View>
+          </View>
+          {right && <View style={styles.addon}>{right}</View>}
+        </View>
+        {error && <Text style={styles.error}>{error}</Text>}
       </View>
-      {error && <Text style={styles.error}>{error}</Text>}
-    </View>
+    </InputProvider>
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   container: {
     gap: theme.spacing.xs,
   },
   inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: theme.spacing.xs,
   },
   inputContainer: {
+    position: "relative",
     flex: 1,
   },
   label: {
@@ -59,6 +72,22 @@ const stylesheet = createStyleSheet((theme) => ({
     color: theme.colors.error,
   },
   addon: {
-    justifyContent: 'center',
+    justifyContent: "center",
+  },
+  border: {
+    borderRadius: theme.borderRadius.sm,
+    backgroundColor: theme.colors.background,
+    variants: {
+      focus: {
+        true: {
+          borderColor: theme.colors.primary,
+          borderWidth: 2,
+        },
+        false: {
+          borderWidth: 1,
+          borderColor: theme.colors.border,
+        },
+      },
+    },
   },
 }));

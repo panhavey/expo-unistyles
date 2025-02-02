@@ -1,19 +1,17 @@
 import { TextInput as RNTextInput, View } from "react-native";
 import Animated, { useAnimatedStyle, withTiming, useSharedValue, Easing } from "react-native-reanimated";
-import { createStyleSheet, useStyles } from "react-native-unistyles";
+import { StyleSheet } from "react-native-unistyles";
 import React, { forwardRef, useEffect } from "react";
 import { Text } from "../Text";
 import { CustomTextInputProps, TextInputRef } from "./types";
-import { useTextInput } from "./useTextInput";
-import { baseStyles } from "./styles";
+import { useInput } from "./InputContext";
 
 export const OutlineTextInput = forwardRef<TextInputRef, CustomTextInputProps>(
   ({ style, label, error, placeholder, value, onChangeText, disabled, ...props }, ref) => {
-    const { styles } = useStyles(stylesheet);
-    const { isFocused, innerValue, innerInputRef, handleFocus, handleBlur, handleChangeText } = useTextInput(value, onChangeText);
+    const { setIsFocused, value: ctxValue, setValue, isFocused } = useInput();
     const labelAnimation = useSharedValue(value ? 1 : 0);
 
-    const shouldFloat = Boolean(innerValue) || isFocused;
+    const shouldFloat = Boolean(ctxValue) || isFocused;
 
     const animatedLabelStyle = useAnimatedStyle(() => ({
       transform: [
@@ -28,7 +26,7 @@ export const OutlineTextInput = forwardRef<TextInputRef, CustomTextInputProps>(
         duration: 200,
         easing: Easing.bezier(0.4, 0, 0.2, 1),
       });
-    }, [innerValue, isFocused, shouldFloat]);
+    }, [ctxValue, isFocused, shouldFloat]);
 
     const renderLabel = () => {
       if (!label) return null;
@@ -51,34 +49,29 @@ export const OutlineTextInput = forwardRef<TextInputRef, CustomTextInputProps>(
     };
 
     return (
-      <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          {renderLabel()}
-          <View style={[styles.outlineVariant, isFocused && !disabled && styles.outlineVariantFocused, error && styles.errorInput]}>
-            <RNTextInput
-              ref={ref}
-              editable={!disabled}
-              style={[styles.base, { borderWidth: 0 }]}
-              placeholder={shouldFloat ? undefined : label}
-              placeholderTextColor={styles.placeholder.color}
-              onFocus={(e) => handleFocus(e, props?.onFocus)}
-              onBlur={(e) => handleBlur(e, props?.onBlur)}
-              value={innerValue}
-              onChangeText={handleChangeText}
-              {...props}
-            />
-          </View>
-        </View>
-        {error && <Text style={styles.error}>{error}</Text>}
-      </View>
+      <>
+        {renderLabel()}
+        <RNTextInput
+          ref={ref}
+          editable={!disabled}
+          placeholder={shouldFloat ? undefined : label}
+          onFocus={(e) => {
+            console.log("va", e.nativeEvent.text);
+            setIsFocused?.(true);
+          }}
+          onBlur={() => setIsFocused?.(false)}
+          value={ctxValue}
+          onChangeText={setValue}
+          {...props}
+        />
+      </>
     );
   }
 );
 
 OutlineTextInput.displayName = "OutlineTextInput";
 
-const stylesheet = createStyleSheet((theme) => ({
-  ...baseStyles(theme),
+const styles = StyleSheet.create((theme) => ({
   floatingLabel: {
     position: "absolute",
     left: theme.spacing.sm,
@@ -102,5 +95,11 @@ const stylesheet = createStyleSheet((theme) => ({
   outlineVariantFocused: {
     borderColor: theme.colors.primary,
     borderWidth: 2,
+  },
+  placeholder: {
+    color: theme.colors.placeholder,
+  },
+  error: {
+    color: theme.colors.error,
   },
 }));
