@@ -8,7 +8,7 @@ export const baseStyles = StyleSheet.create((theme) => ({
     position: "relative",
   },
   base: {
-    height: 40,
+    height: 45,
     padding: theme.spacing.sm,
     fontSize: theme.typography.fontSize.md,
     color: theme.colors.typography,

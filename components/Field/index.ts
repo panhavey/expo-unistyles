@@ -6,7 +6,7 @@ import { FieldError } from "./FieldError";
 export const Field = {
   Root,
   Label: FieldLabel,
-  Field: FieldContent,
+  Content: FieldContent,
   Error: FieldError,
 };
 

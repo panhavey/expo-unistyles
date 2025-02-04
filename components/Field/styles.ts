@@ -3,22 +3,52 @@ import { StyleSheet } from "react-native-unistyles";
 export const styles = StyleSheet.create((theme) => ({
   container: {
     gap: theme.spacing.xs,
+    height: 50,
   },
   inputWrapper: {
     flexDirection: "row",
     alignItems: "center",
     gap: theme.spacing.xs,
-    paddingHorizontal: theme.spacing.sm * 1.5,
-    height: 45,
+    paddingHorizontal: theme.spacing.sm,
+    height: "100%",
+    backgroundColor: theme.colors.background,
   },
   inputContainer: {
     position: "relative",
     flex: 1,
   },
   label: {
-    fontSize: theme.typography.fontSize.sm,
-    color: theme.colors.typography,
+    fontSize: theme.typography.fontSize.xs,
     marginBottom: 4,
+    includeFontPadding: false,
+    textAlignVertical: "center",
+    color: theme.colors.typography,
+    variants: {
+      error: {
+        true: {
+          color: theme.colors.error,
+        },
+      },
+      focus: {
+        true: {
+          color: theme.colors.primary,
+        },
+      },
+      outline: {
+        true: {
+          color: theme.colors.placeholder,
+        },
+      },
+    },
+    compoundVariants: [
+      {
+        focus: true,
+        outline: true,
+        styles: {
+          color: theme.colors.primary,
+        },
+      },
+    ],
   },
   error: {
     fontSize: theme.typography.fontSize.xs,
@@ -29,7 +59,6 @@ export const styles = StyleSheet.create((theme) => ({
   },
   border: {
     borderRadius: theme.borderRadius.sm,
-    backgroundColor: theme.colors.background,
     variants: {
       focus: {
         true: {
