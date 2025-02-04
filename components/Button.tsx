@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import { Pressable, type PressableProps } from "react-native-gesture-handler";
-import { createStyleSheet, useStyles } from "react-native-unistyles";
 import { ReactNode } from "react";
+import { StyleSheet } from "react-native-unistyles";
 
 interface ButtonProps extends PressableProps {
   children: ReactNode;
@@ -9,8 +9,6 @@ interface ButtonProps extends PressableProps {
 }
 
 export const Button = ({ onPress, onLongPress, children, disabled, ...rest }: ButtonProps) => {
-  const { styles } = useStyles(stylesheet);
-
   return (
     <Pressable
       onPress={onPress}
@@ -25,7 +23,7 @@ export const Button = ({ onPress, onLongPress, children, disabled, ...rest }: Bu
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   button: {
     backgroundColor: theme.colors.primary,
     padding: theme.spacing.md,

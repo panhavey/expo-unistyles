@@ -1,20 +1,20 @@
 import { Text as RNText, type TextProps as RNTextProps } from "react-native";
-import { createStyleSheet, useStyles } from "react-native-unistyles";
+import { StyleSheet } from "react-native-unistyles";
 
-export type ThemedTextProps = RNTextProps & {
+export type TextProps = RNTextProps & {
   type?: "title" | "subtitle" | "caption" | "button";
   lang?: "en" | "kh";
 };
 
-export function Text({ style, type, lang = "en", ...rest }: ThemedTextProps) {
-  const { styles } = useStyles(stylesheet, {
+export function Text({ style, type, lang = "en", ...rest }: TextProps) {
+  styles.useVariants({
     type,
   });
 
   return <RNText style={[styles.base, styles.text, styles.extraStyle(lang, type), style]} {...rest} />;
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   base: {
     color: theme.colors.typography,
   },
@@ -43,7 +43,7 @@ const stylesheet = createStyleSheet((theme) => ({
       },
     },
   },
-  extraStyle: (lang: ThemedTextProps["lang"], type?: ThemedTextProps["type"]) => {
+  extraStyle: (lang: TextProps["lang"], type?: TextProps["type"]) => {
     const fontMap = {
       default: {
         en: "Inter_400Regular",

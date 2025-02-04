@@ -2,7 +2,7 @@
 import React from "react";
 import { Pressable } from "react-native";
 import Animated, { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { createStyleSheet, useStyles } from "react-native-unistyles";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 interface SwitchProps {
   value?: boolean;
@@ -13,10 +13,10 @@ interface SwitchProps {
 }
 
 const Switch: React.FC<SwitchProps> = ({ value: externalValue, onChange, style, duration = 300, trackColors }) => {
-  const { styles, theme } = useStyles(stylesheet);
   const height = useSharedValue(0);
   const width = useSharedValue(0);
   const internalValue = useSharedValue(externalValue ?? false);
+  const { theme } = useUnistyles(); //TODO: refactor to not use hook
 
   const defaultTrackColors = {
     on: theme.colors.primary,
@@ -65,7 +65,7 @@ const Switch: React.FC<SwitchProps> = ({ value: externalValue, onChange, style, 
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   track: {
     alignItems: "flex-start",
     width: theme.spacing.xl * 2,

@@ -1,20 +1,18 @@
-import React, { forwardRef } from "react";
-import { DefaultTextInput } from "./DefaultTextInput";
-import { OutlineTextInput } from "./OutlineTextInput";
+import { forwardRef } from "react";
 import { CustomTextInputProps, TextInputRef } from "./types";
-import { InputContainer } from "./InputContainer";
+import { UnstyleTextInput } from "./UnstyleTextInput";
+import { Field } from "../Field";
 
 const TextInput = forwardRef<TextInputRef, CustomTextInputProps>(({ variant = "default", right, left, style, ...props }, ref) => {
-  const input = variant === "outline" ? <OutlineTextInput {...props} ref={ref} /> : <DefaultTextInput {...props} ref={ref} />;
-
   return (
-    <InputContainer variant={variant} right={right} left={left} label={props.label} error={props.error} style={style}>
-      {input}
-    </InputContainer>
+    <Field.Root variant={variant} error={props.error}>
+      <Field.Label label={props.label} />
+      <Field.Content left={left} right={right}>
+        <UnstyleTextInput {...props} ref={ref} />
+      </Field.Content>
+      <Field.Error error={props.error} />
+    </Field.Root>
   );
 });
 
-TextInput.displayName = "TextInput";
-
-export * from "./types";
 export default TextInput;

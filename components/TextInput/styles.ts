@@ -1,6 +1,6 @@
-import { createStyleSheet } from "react-native-unistyles";
+import { StyleSheet } from "react-native-unistyles";
 
-export const baseStyles = createStyleSheet((theme) => ({
+export const baseStyles = StyleSheet.create((theme) => ({
   container: {
     gap: theme.spacing.xs,
   },
@@ -8,7 +8,7 @@ export const baseStyles = createStyleSheet((theme) => ({
     position: "relative",
   },
   base: {
-    height: 40,
+    height: 45,
     padding: theme.spacing.sm,
     fontSize: theme.typography.fontSize.md,
     color: theme.colors.typography,
