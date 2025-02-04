@@ -1,4 +1,5 @@
-export * from "./Toast";
 export * from "./ToastContainer";
-export { toast } from "./ToastManager";
 export * from "./types";
+
+export { ToastItem as Toast } from "./ToastItem";
+export { toast } from "./ToastManager";

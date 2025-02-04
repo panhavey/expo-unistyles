@@ -1,4 +1,4 @@
-import { ToastOptions } from './types';
+import { ToastOptions } from "./types";
 
 class ToastManager {
   private static instance: ToastManager;
@@ -14,10 +14,7 @@ class ToastManager {
     return ToastManager.instance;
   }
 
-  setHandlers(
-    show: (message: string, options?: ToastOptions) => void,
-    hide: () => void
-  ) {
+  setHandlers(show: (message: string, options?: ToastOptions) => void, hide: () => void) {
     this.showCallback = show;
     this.hideCallback = hide;
   }
@@ -36,12 +33,8 @@ export const toastManager = ToastManager.getInstance();
 export const toast = {
   show: (message: string, options?: ToastOptions) => toastManager.show(message, options),
   hide: () => toastManager.hide(),
-  success: (message: string, options?: Omit<ToastOptions, 'type'>) => 
-    toastManager.show(message, { ...options, type: 'success' }),
-  error: (message: string, options?: Omit<ToastOptions, 'type'>) => 
-    toastManager.show(message, { ...options, type: 'error' }),
-  info: (message: string, options?: Omit<ToastOptions, 'type'>) => 
-    toastManager.show(message, { ...options, type: 'info' }),
-  warning: (message: string, options?: Omit<ToastOptions, 'type'>) => 
-    toastManager.show(message, { ...options, type: 'warning' }),
+  success: (message: string, options?: Omit<ToastOptions, "type">) => toastManager.show(message, { ...options, type: "success" }),
+  error: (message: string, options?: Omit<ToastOptions, "type">) => toastManager.show(message, { ...options, type: "error" }),
+  info: (message: string, options?: Omit<ToastOptions, "type">) => toastManager.show(message, { ...options, type: "info" }),
+  warning: (message: string, options?: Omit<ToastOptions, "type">) => toastManager.show(message, { ...options, type: "warning" }),
 };

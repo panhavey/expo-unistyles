@@ -2,29 +2,33 @@ import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { ToastOptions, ToastProps } from "./types";
-import { ToastItem } from "./components/ToastItem";
 import { toastManager } from "./ToastManager";
+import { ToastItem } from "./ToastItem";
 
 export const ToastContainer: React.FC = () => {
-  const [toasts, setToasts] = useState<ToastProps[]>([]);
+  const [toastQueue, setToastQueue] = useState<ToastProps[]>([]);
 
-  const show = useCallback((message: string, options?: ToastOptions) => {
-    const id = Math.random().toString(36).substring(2, 9);
-    setToasts((prev) => [...prev, { id, message, ...options }]);
+  const showToast = useCallback((message: string, options?: ToastOptions) => {
+    const toastId = Math.random().toString(36).substring(2, 9);
+    setToastQueue((currentQueue) => [...currentQueue, { id: toastId, message, ...options }]);
   }, []);
 
-  const hide = useCallback((id: string) => {
-    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+  const removeToast = useCallback((toastId: string) => {
+    setToastQueue((currentQueue) => currentQueue.filter((toast) => toast.id !== toastId));
+  }, []);
+
+  const clearAllToasts = useCallback(() => {
+    setToastQueue([]);
   }, []);
 
   useEffect(() => {
-    toastManager.setHandlers(show, () => setToasts([]));
-  }, [show]);
+    toastManager.setHandlers(showToast, clearAllToasts);
+  }, [showToast, clearAllToasts]);
 
   return (
     <View style={styles.container} pointerEvents="box-none">
-      {toasts.map((toast, index) => (
-        <ToastItem key={toast.id} {...toast} style={[{ zIndex: 1000 + index }]} onDismiss={() => hide(toast.id)} />
+      {toastQueue.map((toast, index) => (
+        <ToastItem key={toast.id} {...toast} style={[{ zIndex: 1000 + index }]} onDismiss={() => removeToast(toast.id)} />
       ))}
     </View>
   );

@@ -1,15 +1,15 @@
-import { StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from "react-native";
 
-export type ToastType = 'success' | 'error' | 'info' | 'warning';
+export type ToastType = "success" | "error" | "info" | "warning";
 
-export type ToastAnimation = 'spring' | 'ease' | 'bounce' | 'slide';
+export type ToastAnimation = "spring" | "ease" | "bounce" | "slide";
 
 export interface ToastProps {
   id: string;
   message: string;
   type?: ToastType;
   duration?: number;
-  position?: 'top' | 'bottom';
+  position?: "top" | "bottom";
   style?: StyleProp<ViewStyle>;
   icon?: React.ReactNode;
   action?: {
@@ -22,13 +22,14 @@ export interface ToastProps {
     damping?: number;
     stiffness?: number;
   };
+  showProgress?: boolean;
 }
 
-export interface ToastItemProps extends Omit<ToastProps, 'id'> {
+export interface ToastItemProps extends Omit<ToastProps, "id"> {
   onDismiss: () => void;
 }
 
-export interface ToastOptions extends Omit<ToastProps, 'message' | 'id'> {}
+export interface ToastOptions extends Omit<ToastProps, "message" | "id"> {}
 
 export interface ToastItem extends ToastProps {
   id: string;
