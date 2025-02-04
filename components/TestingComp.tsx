@@ -19,7 +19,7 @@ const TestingComp = (props: Props) => {
           }}
         />
         <Button>Click Me</Button>
-        <TextInput variant="outline" label="Username" left={<User />} />
+        <TextInput variant="outline" label="Username" left={<User color="gray" />} />
         <TextInput variant="outline" label="Username" />
       </ScrollView>
     </SafeAreaView>

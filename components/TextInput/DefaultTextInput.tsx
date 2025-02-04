@@ -1,12 +1,11 @@
-import { TextInput as RNTextInput, View } from "react-native";
+import { TextInput as RNTextInput } from "react-native";
 import React, { forwardRef } from "react";
 import { CustomTextInputProps, TextInputRef } from "./types";
-
-import { useInput } from "./InputContext";
+import { useField } from "../Field/FieldContext";
 
 export const DefaultTextInput = forwardRef<TextInputRef, CustomTextInputProps>(
   ({ style, label, error, placeholder, value, onChangeText, disabled, ...props }, ref) => {
-    const { setIsFocused, value: ctxValue, setValue } = useInput();
+    const { setIsFocused, value: ctxValue, setValue } = useField();
 
     return (
       <>
@@ -21,8 +20,6 @@ export const DefaultTextInput = forwardRef<TextInputRef, CustomTextInputProps>(
           onChangeText={setValue}
           {...props}
         />
-
-        {/* {error && <Text style={styles.error}>{error}</Text>} */}
       </>
     );
   }

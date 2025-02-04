@@ -21,13 +21,13 @@ const styles = StyleSheet.create((theme) => ({
     variants: {
       color: {
         error: {
-          backgroundColor: theme.colors.error,
+          color: theme.colors.error,
         },
         focus: {
-          backgroundColor: theme.colors.primary,
+          color: theme.colors.primary,
         },
         default: {
-          backgroundColor: theme.colors.typography,
+          color: theme.colors.typography,
         },
       },
     },
