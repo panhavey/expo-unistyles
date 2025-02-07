@@ -2,7 +2,7 @@ import React from "react";
 import { Text } from "../Text";
 import { useField } from "./FieldContext";
 import { FloatingLabel } from "./FloatingLabel";
-import { styles } from "./styles";
+import { fieldStyles } from "./styles";
 
 interface FieldLabelProps {
   label?: string;
@@ -13,13 +13,13 @@ export const FieldLabel: React.FC<FieldLabelProps> = ({ label }) => {
 
   const { variant, error, isFocused, value } = useField();
 
-  styles.useVariants({
+  fieldStyles.useVariants({
     focus: isFocused,
     error: !!error,
     outline: variant === "outline",
   });
 
-  const labelComponent = <Text style={styles.label}>{label}</Text>;
+  const labelComponent = <Text style={fieldStyles.label}>{label}</Text>;
 
   if (variant === "outline") {
     return (

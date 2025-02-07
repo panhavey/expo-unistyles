@@ -38,7 +38,7 @@ const styles = StyleSheet.create((theme) => ({
     transform: [{ scale: 0.98 }],
   },
   buttonDisabled: {
-    backgroundColor: theme.colors.inactive,
+    backgroundColor: theme.colors.contentMuted,
     opacity: 0.5,
   },
   text: {

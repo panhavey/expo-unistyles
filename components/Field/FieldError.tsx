@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "../Text";
-import { styles } from "./styles";
+import { fieldStyles } from "./styles";
 
 interface FieldErrorProps {
   error?: string;
@@ -8,5 +8,5 @@ interface FieldErrorProps {
 
 export const FieldError: React.FC<FieldErrorProps> = ({ error }) => {
   if (!error) return null;
-  return <Text style={styles.error}>{error}</Text>;
+  return <Text style={fieldStyles.error}>{error}</Text>;
 };

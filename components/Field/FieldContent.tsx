@@ -1,18 +1,37 @@
 import React from "react";
 import { View } from "react-native";
 import { useField } from "./FieldContext";
-import { styles } from "./styles";
+import { fieldStyles } from "./styles";
 import { FieldContentProps } from "./type";
+import { StyleSheet } from "react-native-unistyles";
 
 export const FieldContent: React.FC<FieldContentProps> = ({ children, left, right }) => {
   const { isFocused } = useField();
-  styles.useVariants({ focus: isFocused });
+  fieldStyles.useVariants({ focus: isFocused });
 
   return (
-    <View style={[styles.inputWrapper, styles.border]}>
-      {left && <View style={styles.addon}>{left}</View>}
-      <View style={styles.inputContainer}>{children}</View>
-      {right && <View style={styles.addon}>{right}</View>}
+    <View style={[fieldStyles.inputWrapper, fieldStyles.border]}>
+      {left && <View style={fieldStyles.addon}>{left}</View>}
+      <View style={fieldStyles.inputContainer}>{children}</View>
+      {right && <View style={fieldStyles.addon}>{right}</View>}
     </View>
   );
 };
+
+const styles = StyleSheet.create((theme) => ({
+  border: {
+    borderRadius: theme.borderRadius.sm,
+    variants: {
+      focus: {
+        true: {
+          borderColor: theme.colors.primary,
+          borderWidth: 2,
+        },
+        false: {
+          borderWidth: 1,
+          borderColor: theme.colors.borderDefault,
+        },
+      },
+    },
+  },
+}));

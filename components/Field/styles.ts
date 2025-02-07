@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native-unistyles";
 
-export const styles = StyleSheet.create((theme) => ({
+export const fieldStyles = StyleSheet.create((theme) => ({
   container: {
     gap: theme.spacing.xs,
-    height: 50,
+    height: 45,
   },
   inputWrapper: {
     flexDirection: "row",
@@ -11,7 +11,7 @@ export const styles = StyleSheet.create((theme) => ({
     gap: theme.spacing.xs,
     paddingHorizontal: theme.spacing.sm,
     height: "100%",
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.base,
   },
   inputContainer: {
     position: "relative",
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create((theme) => ({
     marginBottom: 4,
     includeFontPadding: false,
     textAlignVertical: "center",
-    color: theme.colors.typography,
+    color: theme.colors.content,
     variants: {
       error: {
         true: {
@@ -67,7 +67,7 @@ export const styles = StyleSheet.create((theme) => ({
         },
         false: {
           borderWidth: 1,
-          borderColor: theme.colors.border,
+          borderColor: theme.colors.borderDefault,
         },
       },
     },

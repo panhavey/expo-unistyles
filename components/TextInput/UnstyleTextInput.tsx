@@ -2,6 +2,7 @@ import { TextInput as RNTextInput, TextInputProps } from "react-native";
 import React, { forwardRef } from "react";
 import { CustomTextInputProps, TextInputRef } from "./types";
 import { useField } from "../Field/FieldContext";
+import { StyleSheet } from "react-native-unistyles";
 
 type UnstyledInputProps = Omit<CustomTextInputProps, "variant">;
 
@@ -32,13 +33,21 @@ export const UnstyleTextInput = forwardRef<TextInputRef, UnstyledInputProps>(({ 
       ref={ref}
       editable={!disabled}
       placeholder={showPlaceholder ? placeholderText : undefined}
+      placeholderTextColor={styles.placeholder.color}
       onFocus={handleFocus}
       onBlur={handleBlur}
       value={value}
       onChangeText={setValue}
+      style={{ height: 45 }}
       {...props}
     />
   );
 });
+
+const styles = StyleSheet.create((theme) => ({
+  placeholder: {
+    color: theme.colors.placeholder,
+  },
+}));
 
 UnstyleTextInput.displayName = "UnstyleTextInput";

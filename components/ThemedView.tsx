@@ -9,6 +9,6 @@ export function ThemedView({ style, ...otherProps }: ThemedViewProps) {
 
 const styles = StyleSheet.create((theme) => ({
   base: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.base,
   },
 }));

@@ -20,7 +20,7 @@ const Switch: React.FC<SwitchProps> = ({ value: externalValue, onChange, style, 
 
   const defaultTrackColors = {
     on: theme.colors.primary,
-    off: theme.colors.inactive,
+    off: theme.colors.interactiveDisabled,
     ...trackColors,
   };
 
@@ -75,7 +75,7 @@ const styles = StyleSheet.create((theme) => ({
   thumb: {
     height: "100%",
     aspectRatio: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.base,
   },
 }));
 

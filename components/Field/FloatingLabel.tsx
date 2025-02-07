@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
-import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, { Easing, useAnimatedStyle, withTiming } from "react-native-reanimated";
 
 interface FloatingLabelProps {
   children: React.ReactNode;
@@ -36,7 +36,7 @@ const styles = StyleSheet.create((theme) => ({
   },
   wrapper: {
     paddingHorizontal: theme.spacing.xs,
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.base,
     justifyContent: "center",
   },
 }));

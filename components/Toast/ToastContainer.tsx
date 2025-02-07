@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { ToastOptions, ToastProps } from "./types";
 import { toastManager } from "./ToastManager";
-import { ToastItem } from "./ToastItem";
+import { ToastItem } from "./components/ToastItem";
 
 export const ToastContainer: React.FC = () => {
   const [toastQueue, setToastQueue] = useState<ToastProps[]>([]);

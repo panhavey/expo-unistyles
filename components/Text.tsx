@@ -16,7 +16,7 @@ export function Text({ style, type, lang = "en", ...rest }: TextProps) {
 
 const styles = StyleSheet.create((theme) => ({
   base: {
-    color: theme.colors.typography,
+    color: theme.colors.content,
   },
   text: {
     variants: {
